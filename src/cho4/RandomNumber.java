@@ -3,7 +3,6 @@ package cho4;
 public class RandomNumber {
     public static void main(String[] args) {
         //API, Math.random() double 타입 리턴, 0.0000000 ~ 9.99999999, 절대 1이 안나온다.
-
         System.out.println( Math.random());
 
         double value = 0.99999;

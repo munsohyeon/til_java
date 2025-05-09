@@ -38,6 +38,5 @@ public class PrintVsPrintln {
         System.out.printf("제 이름은 %s이고 나이는 %d살이며 키는 %.1fcm입니다.\n", name, age, height );
         // %(위치,순서대로 값을 넣는다.)
 
-
     }
 }
