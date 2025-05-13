@@ -6,7 +6,7 @@ public class SingleOperatorExample {
         System.out.printf("x: %d\n",x);
 
         x = -x; // 전체는 쓰기 -x는 읽기
-        // x = -100 * -1;
+        // x = -100 * -1; >> x = 100;
         System.out.printf("x: %d\n", x);
 
         int y = 100 * -1;

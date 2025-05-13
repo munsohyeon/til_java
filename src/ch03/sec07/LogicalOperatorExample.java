@@ -9,12 +9,19 @@ public class LogicalOperatorExample {
         System.out.printf(" 5 > 0 && 5 > 2 : %b\n", 5 > 0 && 5 > 2);
         System.out.printf(" 5 > 0 && 5 < 2 : %b\n", 5 > 0 && 5 < 2);
         System.out.printf(" 5 > 0 && 5 < 2 && 10 > 2 : %b\n", 5 > 0 && 5 < 2 && 10 > 2);
+
         System.out.println();
         System.out.printf("5 > 0 || 5 > 2 : %b\n", 5 > 0 || 5 < 2 );
         System.out.printf("5 < 0 || 5 > 2 : %b\n", 5 < 0 || 5 < 2 );
+        // 1) 5 > 0 >> true
+        // 2) 5 < 2 >> false
+        // 3) true && false >> false
+
         System.out.println();
         System.out.printf("5 > 0 || 5 < 2 : %b\n", 5 > 0 || 5 < 2 );
+        // 1) 5 > 0 >> true
         System.out.printf("5 < 0 || 5 < 2 : %b\n", 5 < 0 || 5 < 2 );
+
         System.out.println();
         System.out.printf("!(5 < 0 || 5 < 2) : %b\n", !(5 < 0 || 5 < 2));
         System.out.printf("!false : b%", "!false");
