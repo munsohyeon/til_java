@@ -1,4 +1,4 @@
-package cho4.sec04;
+package other;
 
 public class Star {
     public static void main(String[] args) {
