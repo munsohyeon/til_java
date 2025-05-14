@@ -5,7 +5,7 @@ public class Star {
 
         // 왼쪽으로 피라미드
         for (int i = 1; i <= 5; i++ ) {
-            for (int s = 1; s <= i; s++) {
+            for (int k = 1; k <= i; k++) {
                 System.out.print("*");
             }
             System.out.println(" ");
