@@ -1,72 +1,99 @@
 package other;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class BaseBallGame {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        //0~9까지의 랜덤한 정수가 저장될 배열 생성
-        int[] baseball = new int[3];
-        //키보드로 입력한 정수가 저장될 배열 생성
-        int[] answer = new int[3];
+        Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
 
-        //basesball 배열에 중복없이 랜덤수 저장
-        for(int i = 0; i < baseball.length ; i++){
-            //0~9사이의 랜덤수 생성 및 저장
-            int rand = (int)(Math.random() * 10);
-            baseball[i] = rand;
+        //게임에서 사용할 변수
+        int com1, com2, com3;
+        int user1, user2, user3;
+        int randomCnt = 0;//난수생성 카운트
+        int gameCount = 0;//게임 카운트
+        int strikeCnt=0, ballCnt=0;//스크라이크,볼 카운트
 
-            //★★중복 값 제거★★
-            for(int j = 0; j < i ; j++){//i가 0일 때는 중복 검사X 비교 필요X
-                if(baseball[i] == baseball[j]){
-                    i--;
+        //게임전체반복
+        while(true) {
+            //중복되지 않는 3개의 숫자생성
+            while(true) {
+                //몇번만에 숫자 생성되는지 확인
+                randomCnt++;
+                //1~9사이의 숫자 생성
+                com1 = random.nextInt(100) % 9 + 1;
+                com2 = random.nextInt(100) % 9 + 1;
+                com3 = random.nextInt(100) % 9 + 1;
+                if(!(com1 == com2 || com2 == com3 || com3 == com1)) {
+                    //중복되지 않는 난수 생성에 성공하면 루프탈출
                     break;
                 }
-            }
-        }
-        //만들어진 배열 출력
-        System.out.print("만들어진 숫자 : ");
-        for(int e : baseball){
-            System.out.print(e + " ");
-        }
-        System.out.println();
-        //게임 시작
-        int tryCnt = 0;
-        System.out.println("숫자를 정했습니다. 게임을 시작합니다.");
-        while (true){
-            System.out.print(++tryCnt + " >> ");
+            }//while end
 
-            //키보드로 입력 받는 숫자 answer 배열에 저장
-            for(int i = 0; i < answer.length; i++){
-                answer[i] = sc.nextInt();
-            }
+            //난수확인
+            System.out.println(randomCnt+"회:" + com1 + " " + com2 + " " + com3);
 
-            //strike, ball 계산
-            int strike = 0, ball = 0;
-            //같은 인덱스에 들어간 동일 데이터 = strike
-            //다른 인덱스에 들어간 동일 데이터 = ball
-            for(int i = 0; i < baseball.length ; i++){//baseball 배열 크기 만큼 돌면서
-                for(int j = 0; j < answer.length; j++){//answer 배열 크기 만큼 또 돌아야 함.
-                    if(baseball[i] == answer[j] && i == j){ //위치까지 같음
-                        strike++;
-                    }
-                    else if(baseball[i] == answer[j] && i != j){ //위치 다름
-                        ball++;
-                    }
+            while(true) {
+                //3개의 정수를 입력받는다.
+                System.out.println("3개의정수를 입력하세요(1~9)");
+                System.out.println("- 스페이스로 구분 및 마지막에 Enter를 눌러주세요 -");
+                System.out.print(">> ");
+                user1 = scanner.nextInt();
+                user2 = scanner.nextInt();
+                user3 = scanner.nextInt();
+
+                //게임카운트 1회 증가
+                gameCount++;
+
+                //판단1 - 스크라이크(숫자와 위치까지 일치)
+                if(com1==user1) strikeCnt++;
+                if(com2==user2) strikeCnt++;
+                if(com3==user3) strikeCnt++;
+
+                //판단2 - 볼(숫자는 일치하나 위치가 다를때)
+                if(com1==user2 || com1==user3) ballCnt++;
+                if(com2==user1 || com2==user3) ballCnt++;
+                if(com3==user1 || com3==user2) ballCnt++;
+
+                //게임종료판단
+                if(strikeCnt==3) {
+                    System.out.println("3스트라이크 게임종료");
+                    System.out.println(gameCount+"번만에 맞추셨습니다.");
+                    break;
                 }
-            }
-            //결과 출력
-            System.out.println(strike + "스트라이크" + ball + "볼");
+                else {
+                    //하나도 못맞추는 경우
+                    if(strikeCnt==0 && ballCnt==0) {
+                        System.out.println("아웃입니다");
+                    }
+                    else {
+                        System.out.printf("%d스트라이크, %d볼\n",
+                                strikeCnt, ballCnt);
+                    }
+                    //스트라이크, 볼 카운트 초기화
+                    strikeCnt = 0;
+                    ballCnt = 0;
+                    //continue문은 필요없음.
+                }
+            }////while end
 
-            if(strike == 3){
-                break;  //while문 벗어남
+            System.out.println("한게임 더 하시겠습니까?(0:종료,1:재시작)");
+            int restart = scanner.nextInt();
+            if(restart==0) {
+                //게임종료
+                System.out.println("\n==게임이 종료되었습니다.==\n");
+                //실행되는 즉시 main함수가 종료된다.
+                System.exit(0);
             }
-            else {
-                strike = 0;
-                ball = 0;    //초기화 시켜줘야함. 아니면 게임할 때 카운트가 누적됨.
+            else if(restart==1){
+                //게임을 재시작하기 위해 카운트변수 초기화
+                strikeCnt = 0;
+                ballCnt = 0;
+                gameCount = 0;
+                System.out.println("\n==게임을 재시작합니다.==\n");
             }
         }
-        System.out.println(tryCnt + "회 만에 정답을 맞췄습니다.");
     }
 }
 
