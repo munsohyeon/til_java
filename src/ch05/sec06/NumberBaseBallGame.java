@@ -24,12 +24,15 @@ public class NumberBaseBallGame {
         Scanner scanner = new Scanner(System.in);
         while(true) {
             System.out.printf("숫자 %d개를 입력> ", answerArr.length);
-            String input = scanner.nextLine();
+            String input = scanner.nextLine(); // string 객체를 담을수 있는 거
             //System.out.println("input: " + input);
-            String[] inputStrArr = input.split(" ");
+
+            // inputStrArr 문자열배열주소값
+            String[] inputStrArr = input.split(" "); // string 배열를 나타내는 것
             if(inputStrArr.length != answerArr.length) {
                 continue;
             }
+            // new int = 0
             int[] inputArr = new int[answerArr.length];
             for(int i=0; i<inputArr.length; i++) {
                 inputArr[i] = Integer.parseInt(inputStrArr[i]);
